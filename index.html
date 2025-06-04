@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A collaborative project to list all the real-life locations from the Yuru Camp series." />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Yuru Scouts</title>
+
+    <!-- Preload Bulma CSS and fallback for no-JS -->
+    <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+      />
+    </noscript>
+
+    <!-- Critical inline CSS -->
+    <style>
+      .column.is-4 {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-content {
+        flex-grow: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="#">
+            <strong>Yuru Scouts</strong>
+          </a>
+
+          <a
+            role="button"
+            class="navbar-burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarMenu"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="#">Home</a>
+            <a class="navbar-item" href="#">About</a>
+          </div>
+
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <a href="#" class="button is-primary" target="_blank">
+                <!-- Inline SVG icon -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="mr-2"
+                  viewBox="0 0 16 16"
+                  style="margin-right: 0.5rem;"
+                >
+                  <path
+                    d="M12.146.146a.5.5 0 0 1 .708 0l2.5 2.5a.5.5 0 0 1 0 .708l-9 9a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l9-9zM11.207 2L3 10.207V11h.793L13 3.793 11.207 2z"
+                  />
+                </svg>
+                Contribute
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero is-primary">
+      <div class="hero-body has-text-centered">
+        <div class="container">
+          <p class="title">Welcome to the Yuru Scouts!</p>
+          <p class="subtitle">
+            A collaborative project to list all the real-life locations from the
+            Yuru Camp series.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Sections -->
+    <section class="section" id="season1">
+      <div class="container">
+        <h2 class="title is-3">Anime Season 1</h2>
+        <div class="columns is-multiline" id="season1-container">
+          <!-- Loading placeholder -->
+          <div class="column is-4">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">Loading...</p>
+              </header>
+              <div class="card-content">
+                <div class="content">Loading data...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="season2">
+      <div class="container">
+        <h2 class="title is-3">Anime Season 2</h2>
+        <div class="columns is-multiline" id="season2-container">
+          <div class="column is-4">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">Loading...</p>
+              </header>
+              <div class="card-content">
+                <div class="content">Loading data...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="season3">
+      <div class="container">
+        <h2 class="title is-3">Anime Season 3</h2>
+        <div class="columns is-multiline" id="season3-container">
+          <div class="column is-4">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">Loading...</p>
+              </header>
+              <div class="card-content">
+                <div class="content">Loading data...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="manga">
+      <div class="container">
+        <h2 class="title is-3">Manga</h2>
+        <div class="columns is-multiline" id="manga-container">
+          <div class="column is-4">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">Loading...</p>
+              </header>
+              <div class="card-content">
+                <div class="content">Loading data...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="other">
+      <div class="container">
+        <h2 class="title is-3">Other Trips</h2>
+        <div class="columns is-multiline" id="other-container">
+          <div class="column is-4">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">Loading...</p>
+              </header>
+              <div class="card-content">
+                <div class="content">Loading data...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer has-text-centered">
+      <div class="content">
+        <p>Made with 🥖 by wb.</p>
+      </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="assets/js/script.js" defer></script>
+  </body>
+</html>
