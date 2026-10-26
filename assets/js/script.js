@@ -1,88 +1,73 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Toggle burger navbar untuk perangkat seluler
+  /* ---------- Navbar burger ---------- */
   const burger = document.querySelector(".navbar-burger");
-  if (burger) {
-    const menu = document.getElementById(burger.dataset.target);
-    if (menu) {
-      burger.addEventListener("click", () => {
-        burger.classList.toggle("is-active");
-        menu.classList.toggle("is-active");
-      });
+  const menu = burger && document.getElementById(burger.dataset.target);
+
+  if (burger && menu) {
+    burger.addEventListener("click", () => {
+      const open = burger.classList.toggle("is-active");
+      menu.classList.toggle("is-active", open);
+    });
+  }
+
+  /* ---------- Footer year ---------- */
+  const year = document.getElementById("year");
+  if (year) year.textContent = String(new Date().getFullYear());
+
+  /* ---------- Sections and their data files ---------- */
+  const sections = [
+    { id: "season1-container", name: "Anime Season 1", file: "/season1/season1.json" },
+    { id: "season2-container", name: "Anime Season 2", file: "/season2/season2.json" },
+    { id: "season3-container", name: "Anime Season 3", file: "/season3/season3.json" },
+    { id: "manga-container", name: "Manga", file: "/manga/manga.json" },
+    { id: "other-container", name: "Other Trips", file: "/other/other.json" },
+  ];
+
+  /* ---------- Helpers ---------- */
+  // textContent keeps all text XSS-safe
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  // Only allow http(s) links (blocks javascript: and similar)
+  function safeUrl(value) {
+    if (typeof value !== "string" || !value.trim()) return null;
+    try {
+      const url = new URL(value, location.href);
+      return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+    } catch {
+      return null;
     }
   }
 
-  // Definisi bagian dan file data JSON yang sesuai
-  // Tambahkan 'estimatedItems' untuk memperkirakan jumlah item yang akan dimuat
-  // Ini digunakan untuk merender placeholder kerangka awal dan mengurangi CLS
-  const sections = [
-    { id: "season1-container", file: "data/season1.json", estimatedItems: 6 },
-    { id: "season2-container", file: "data/season2.json", estimatedItems: 6 },
-    { id: "season3-container", file: "data/season3.json", estimatedItems: 6 },
-    { id: "manga-container", file: "data/manga.json", estimatedItems: 3 },
-    { id: "other-container", file: "data/other.json", estimatedItems: 3 },
-  ];
+  /* ---------- Card ---------- */
+  // Item shape: { "title": "", "description": "", "link": "" }
+  function createCard(item) {
+    const card = el("div", "card");
 
-  /**
-   * Membuat elemen kartu (card) dari item data yang disediakan.
-   * Jika item adalah null atau placeholder, itu akan membuat kartu kerangka.
-   * @param {Object|null} item - Data untuk kartu, atau null untuk kartu kerangka.
-   * @returns {HTMLElement} Elemen div kartu yang dibuat.
-   */
-  function createCard(item = null) {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    // Jika tidak ada item yang disediakan, buat kartu kerangka (skeleton)
-    if (!item) {
-      const header = document.createElement("header");
-      header.className = "card-header";
-      const title = document.createElement("p");
-      title.className = "card-header-title";
-      title.textContent = "Loading..."; // Placeholder untuk judul
-      header.appendChild(title);
-      card.appendChild(header);
-
-      const cardContent = document.createElement("div");
-      cardContent.className = "card-content";
-      const content = document.createElement("div");
-      content.className = "content";
-      // Gunakan non-breaking spaces dan br untuk memberikan tinggi visual pada area konten
-      content.innerHTML = "&nbsp;<br>&nbsp;<br>&nbsp;"; // Placeholder untuk deskripsi
-      cardContent.appendChild(content);
-      card.appendChild(cardContent);
-      return card;
-    }
-
-    // --- Buat kartu konten yang sebenarnya ---
     if (item.title) {
-      const header = document.createElement("header");
-      header.className = "card-header";
-      const title = document.createElement("p");
-      title.className = "card-header-title";
-      title.textContent = item.title;
-      header.appendChild(title);
+      const header = el("header", "card-header");
+      header.appendChild(el("p", "card-header-title", item.title));
       card.appendChild(header);
     }
 
     if (item.description) {
-      const cardContent = document.createElement("div");
-      cardContent.className = "card-content";
-      const content = document.createElement("div");
-      content.className = "content";
-      content.textContent = item.description;
-      cardContent.appendChild(content);
-      card.appendChild(cardContent);
+      card.appendChild(el("div", "card-content", item.description));
     }
 
-    if (item.link) {
-      const footer = document.createElement("footer");
-      footer.className = "card-footer";
-      const link = document.createElement("a");
-      link.className = "card-footer-item";
-      link.href = item.link;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "Discover";
+    const url = safeUrl(item.link);
+    if (url) {
+      const footer = el("footer", "card-footer");
+      const link = el("a", "card-footer-item", "Discover");
+      link.href = url;
+      // Links to other pages of this site open in the same tab
+      if (new URL(url).origin !== location.origin) {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      }
       footer.appendChild(link);
       card.appendChild(footer);
     }
@@ -90,56 +75,55 @@ document.addEventListener("DOMContentLoaded", () => {
     return card;
   }
 
-  /**
-   * Merender kartu placeholder kerangka ke dalam kontainer yang diberikan.
-   * @param {HTMLElement} container - Elemen DOM untuk ditambahkan placeholder.
-   * @param {number} count - Jumlah kartu placeholder yang akan dirender.
-   */
-  function renderPlaceholders(container, count) {
-    container.innerHTML = ""; // Bersihkan teks "Loading..." yang ada
-    const fragment = document.createDocumentFragment();
-    for (let i = 0; i < count; i++) {
-      const column = document.createElement("div");
-      column.className = "column is-4"; // Ukuran kolom Bulma untuk kartu
-      column.appendChild(createCard(null)); // Berikan null untuk membuat kerangka
-      fragment.appendChild(column);
-    }
-    container.appendChild(fragment);
+  /* ---------- Section states ---------- */
+  function showMessage(container, text) {
+    container.replaceChildren(el("p", "empty-state", text));
   }
 
-  // Muat data untuk setiap bagian secara asynchronous
-  sections.forEach(async ({ id, file, estimatedItems }) => {
-    const container = document.getElementById(id);
+  function showError(container, section) {
+    const box = el("div", "load-error");
+    box.appendChild(
+      el("p", "has-text-danger", `Couldn't load ${section.name}. Check your connection and try again.`)
+    );
+    const retry = el("button", "button is-small", "Try again");
+    retry.type = "button";
+    retry.addEventListener("click", () => loadSection(section));
+    box.appendChild(retry);
+    container.replaceChildren(box);
+  }
 
-    // 1. Render placeholder kerangka segera (ini mengurangi CLS)
-    if (container && estimatedItems > 0) {
-      renderPlaceholders(container, estimatedItems);
-    }
+  /* ---------- Load one section ---------- */
+  async function loadSection(section) {
+    const container = document.getElementById(section.id);
+    if (!container) return;
+
+    showMessage(container, "Loading...");
 
     try {
-      const res = await fetch(file);
+      const res = await fetch(section.file);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
 
-      // 2. Bersihkan placeholder dan render konten aktual
-      container.innerHTML = ""; // Bersihkan konten (kerangka) yang ada
+      const data = await res.json();
+      if (!Array.isArray(data)) throw new Error("Invalid format: expected an array");
+
+      if (data.length === 0) {
+        showMessage(container, "No locations here yet. Be the first to contribute!");
+        return;
+      }
+
       const fragment = document.createDocumentFragment();
       data.forEach((item) => {
-        const column = document.createElement("div");
-        column.className = "column is-4";
+        const column = el("div", "column");
         column.appendChild(createCard(item));
         fragment.appendChild(column);
       });
-      container.appendChild(fragment);
+      container.replaceChildren(fragment);
     } catch (err) {
-      // Jika pemuatan gagal, tampilkan pesan error
-      container.innerHTML = `
-        <p class="has-text-danger">⚠️ Gagal memuat data untuk ${id.replace(
-          "-container",
-          ""
-        )}. Silakan coba lagi nanti.</p>
-      `;
-      console.error(`Error loading ${file}:`, err);
+      console.error(`Error loading ${section.file}:`, err);
+      showError(container, section);
     }
-  });
+  }
+
+  // Sections load independently, so one failure doesn't affect the rest
+  sections.forEach(loadSection);
 });

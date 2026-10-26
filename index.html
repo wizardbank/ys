@@ -3,183 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A collaborative project to list all the real-life locations from the Yuru Camp series." />
     <meta name="color-scheme" content="light dark" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Yuru Scouts</title>
-
-    <!-- Preload Bulma CSS and fallback for no-JS -->
-    <link
-      rel="preload"
-      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
-      />
-    </noscript>
-
-    <!-- Critical inline CSS -->
-    <style>
-      .column.is-4 {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .card {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .card-content {
-        flex-grow: 1;
-        /* Crucial for CLS: Ensures consistent height even for short content. */
-        /* Adjust this value based on your typical description length. */
-        min-height: 100px;
-      }
-
-      /* Basic styling for skeleton text lines in loading cards from script.js */
-      /* This helps ensure the placeholder content reserves space properly. */
-      .card-content .content br {
-        display: block; /* Ensure <br> creates a new line */
-        content: ""; /* No content for the break itself */
-        margin-bottom: 0.5em; /* Spacing between placeholder lines */
-      }
-
-      .card-content .content:empty::before {
-        /* Fallback for empty content divs, ensuring they have some height. */
-        /* Used if no specific placeholder content like '&nbsp;<br>' is set. */
-        content: "&nbsp;";
-        visibility: hidden;
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
   </head>
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar">
       <div class="container">
         <div class="navbar-brand">
-          <a class="navbar-item" href="#">
-            <strong>Yuru Scouts</strong>
-          </a>
+          <a class="navbar-item" href="/index.html"><strong>Yuru Scouts</strong></a>
 
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarMenu"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
+          <button type="button" class="navbar-burger" data-target="navbarMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
 
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item" href="#">Home</a>
+            <a class="navbar-item is-active" href="/index.html">Home</a>
             <a class="navbar-item" href="#">About</a>
-          </div>
-
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <a href="#" class="button is-primary" target="_blank">
-                <!-- Inline SVG icon for "Contribute" button -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="mr-2"
-                  viewBox="0 0 16 16"
-                  style="margin-right: 0.5rem;"
-                >
-                  <path
-                    d="M12.146.146a.5.5 0 0 1 .708 0l2.5 2.5a.5.5 0 0 1 0 .708l-9 9a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l9-9zM11.207 2L3 10.207V11h.793L13 3.793 11.207 2z"
-                  />
-                </svg>
-                Contribute
-              </a>
-            </div>
+            <!-- TODO: point to your repo or contribution form -->
+            <a class="navbar-item" href="#">Contribute</a>
           </div>
         </div>
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero is-primary">
-      <div class="hero-body has-text-centered">
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-body">
         <div class="container">
-          <p class="title">Welcome to the Yuru Scouts!</p>
+          <h1 class="title">Welcome to the Yuru Scouts!</h1>
           <p class="subtitle">
             A collaborative project to list all the real-life locations from the
             Yuru Camp series.
           </p>
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- Content Sections (placeholders will be generated by script.js) -->
-    <section class="section" id="season1">
-      <div class="container">
-        <h2 class="title is-3">📺 Anime Season 1</h2>
-        <div class="columns is-multiline" id="season1-container">
-          <!-- Skeletons will be injected here by script.js -->
+    <!-- Content -->
+    <main>
+      <section class="section" id="season1">
+        <div class="container">
+          <h2 class="title">Anime Season 1</h2>
+          <div class="columns" id="season1-container">
+            <p class="empty-state">Loading...</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="season2">
-      <div class="container">
-        <h2 class="title is-3">📺 Anime Season 2</h2>
-        <div class="columns is-multiline" id="season2-container">
-          <!-- Skeletons will be injected here by script.js -->
+      <section class="section" id="season2">
+        <div class="container">
+          <h2 class="title">Anime Season 2</h2>
+          <div class="columns" id="season2-container">
+            <p class="empty-state">Loading...</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="season3">
-      <div class="container">
-        <h2 class="title is-3">📺 Anime Season 3</h2>
-        <div class="columns is-multiline" id="season3-container">
-          <!-- Skeletons will be injected here by script.js -->
+      <section class="section" id="season3">
+        <div class="container">
+          <h2 class="title">Anime Season 3</h2>
+          <div class="columns" id="season3-container">
+            <p class="empty-state">Loading...</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="manga">
-      <div class="container">
-        <h2 class="title is-3">📖 Manga</h2>
-        <div class="columns is-multiline" id="manga-container">
-          <!-- Skeletons will be injected here by script.js -->
+      <section class="section" id="manga">
+        <div class="container">
+          <h2 class="title">Manga</h2>
+          <div class="columns" id="manga-container">
+            <p class="empty-state">Loading...</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="other">
-      <div class="container">
-        <h2 class="title is-3">🎒 Other Trips</h2>
-        <div class="columns is-multiline" id="other-container">
-          <!-- Skeletons will be injected here by script.js -->
+      <section class="section" id="other">
+        <div class="container">
+          <h2 class="title">Other Trips</h2>
+          <div class="columns" id="other-container">
+            <p class="empty-state">Loading...</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <noscript>
+        <div class="container">
+          <p class="has-text-danger">Locations are loaded with JavaScript. Please enable it to see the list.</p>
+        </div>
+      </noscript>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer has-text-centered">
-      <div class="content">
-        <p>Made with 🥖 by wb.</p>
+    <footer class="footer">
+      <div class="container">
+        <p>© <span id="year">2026</span> Yuru Scouts.</p>
       </div>
     </footer>
 
-    <!-- Main JavaScript -->
-    <script src="assets/js/script.js" defer></script>
+    <script src="/assets/js/script.js" defer></script>
   </body>
 </html>
