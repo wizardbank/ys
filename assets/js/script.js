@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- Sections and their data files ---------- */
   const sections = [
-    { id: "season1-container", name: "Anime Season 1", file: "/season1/season1.json" },
-    { id: "season2-container", name: "Anime Season 2", file: "/season2/season2.json" },
-    { id: "season3-container", name: "Anime Season 3", file: "/season3/season3.json" },
-    { id: "manga-container", name: "Manga", file: "/manga/manga.json" },
-    { id: "other-container", name: "Other Trips", file: "/other/other.json" },
+    { id: "season1-container", name: "Anime Season 1", file: "season1/season1.json" },
+    { id: "season2-container", name: "Anime Season 2", file: "season2/season2.json" },
+    { id: "season3-container", name: "Anime Season 3", file: "season3/season3.json" },
+    { id: "manga-container", name: "Manga", file: "manga/manga.json" },
+    { id: "other-container", name: "Other Trips", file: "other/other.json" },
   ];
 
   /* ---------- Helpers ---------- */
